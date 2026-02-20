@@ -30,7 +30,14 @@ Claude Code understands your codebase, executes routine tasks, explains complex 
   - [Settings and Permissions](#settings-and-permissions)
   - [Model Selection and Cost Optimization](#model-selection-and-cost-optimization)
   - [Keyboard Shortcuts](#keyboard-shortcuts)
-- [Prompt Engineering for Claude Code](#prompt-engineering-for-claude-code)
+- [Working Effectively with Claude Code](#working-effectively-with-claude-code)
+  - [The Paradigm Shift](#the-paradigm-shift)
+  - [Verification-First Development](#verification-first-development)
+  - [Documentation-First: Compound Interest Programming](#documentation-first-compound-interest-programming)
+  - [Master Mindset: Delegate, Don't Dictate](#master-mindset-delegate-dont-dictate)
+  - [Autonomous Execution: Minimize Human-in-the-Loop](#autonomous-execution-minimize-human-in-the-loop)
+  - [Context Hygiene](#context-hygiene)
+  - [Multi-Agent Orchestration Patterns](#multi-agent-orchestration-patterns)
 - [Tutorials and Guides](#tutorials-and-guides)
 - [Alternative Coding Agents](#alternative-coding-agents)
 - [Community](#community)
@@ -295,100 +302,224 @@ Key shortcuts available in the Claude Code terminal interface:
 | `/` | Open slash command menu |
 | `Shift+Enter` | Newline in message (multi-line input) |
 
-## Prompt Engineering for Claude Code
+## Working Effectively with Claude Code
 
-Effective patterns for getting the most out of Claude Code.
+Claude Code is not a chatbot you prompt — it is an autonomous agent you delegate to. The highest-leverage work is not writing better prompts, but **engineering a better environment**: tests, documentation, permissions, and context management that let Claude self-correct and operate independently.
 
-### Task Decomposition
+> "Instead of writing code yourself and asking Claude to review it, you describe what you want and Claude figures out how to build it." — [Anthropic Official Best Practices](https://code.claude.com/docs/en/best-practices)
 
-Break complex tasks into smaller, verifiable steps:
+### The Paradigm Shift
 
-```
-Instead of: "Build me a full authentication system"
+| Naive Approach | Expert Approach |
+|----------------|-----------------|
+| Write detailed step-by-step prompts | Describe intent and constraints, let Claude figure out the how |
+| Micro-manage file edits | Invest in CLAUDE.md, tests, hooks — they compound across all sessions |
+| One long session for everything | Aggressive context hygiene: `/clear` between tasks, subagents for exploration |
+| Human reviews every output | Tests + linters + type checkers let Claude self-correct autonomously |
+| Hope Claude remembers instructions | CLAUDE.md + auto memory + hooks ensure persistence |
+| Sequential single-agent work | Parallel subagents, agent teams, writer/reviewer patterns |
 
-Better: "Let's implement auth step by step:
-1. First, create the User model with email and hashed password fields
-2. Then implement the registration endpoint with validation
-3. Add login endpoint that returns JWT tokens
-4. Add middleware for protected routes
-5. Write tests for each endpoint
-After each step, run the tests before proceeding."
-```
+### Verification-First Development
 
-### Context Priming
+> "Include tests, screenshots, or expected outputs so Claude can check itself. This is the single highest-leverage thing you can do." — Anthropic
 
-Give Claude Code the relevant context upfront:
+The key insight: **give Claude a way to verify its own work so you stop being the only feedback loop.** Without verification criteria, every mistake requires your attention. With tests, Claude self-corrects autonomously.
 
-```
-Read src/lib/database.ts and src/types/user.ts first, then implement
-a new function in src/lib/auth.ts that validates JWT tokens using
-the existing database connection pattern.
-```
-
-### Verification Loops
-
-Always ask Claude Code to verify its own work:
+**The TDD pattern with Claude Code:**
 
 ```
-After making the changes, run the test suite and fix any failures.
-Then run the linter and fix any warnings. Show me the final test output.
+Write failing tests for a validateEmail function:
+- user@example.com → true
+- "invalid" → false
+- user@.com → false
+Then implement the function and make all tests pass.
 ```
 
-### Constraint-Based Prompting
+**The verification hierarchy (from most to least autonomous):**
+1. **Test suites** — Claude runs tests, sees failures, fixes them without asking you
+2. **Type checkers / linters** — immediate, deterministic feedback
+3. **Bash commands** — `curl` the endpoint, `grep` for regressions, `diff` output
+4. **Screenshots** — for UI work, Claude can visually verify
+5. **Human review** — last resort, not default
 
-State what you want AND what you do not want:
+**Anti-pattern:** Telling Claude what to implement without any way to verify. Claude will produce plausible-looking code that may miss edge cases, and you become the test suite.
 
+### Documentation-First: Compound Interest Programming
+
+CLAUDE.md is not a prompt — it is **persistent institutional knowledge** that compounds over time. Every rule you add prevents entire classes of mistakes in all future sessions.
+
+**The compounding hierarchy:**
+
+| Asset | Scope | Compounds How |
+|-------|-------|---------------|
+| `CLAUDE.md` (project) | Team, via git | Every team member benefits, every session obeys |
+| `~/.claude/CLAUDE.md` (global) | Personal, all projects | Your coding style enforced everywhere |
+| `.claude/rules/*.md` | Topic-specific, path-scoped | Targeted rules for API code, tests, docs, etc. |
+| Auto memory (`~/.claude/projects/`) | Personal, per project | Claude learns your patterns across sessions |
+| Skills (`.claude/skills/`) | Reusable workflows | Refined over time, invoked on demand |
+| Hooks (`.claude/hooks/`) | Deterministic automation | Guaranteed execution, not advisory |
+
+**What to put in CLAUDE.md:**
+- Commands Claude cannot guess (`pnpm test:e2e --filter=api`)
+- Style rules that differ from defaults ("use tabs, not spaces")
+- Architectural decisions ("all API handlers go through the middleware chain in src/middleware/")
+- Common gotchas ("the staging DB requires VPN; use `make tunnel` first")
+
+**What NOT to put in CLAUDE.md:**
+- Anything Claude can figure out by reading the code
+- Standard language conventions
+- Verbose explanations (if CLAUDE.md is too long, rules get ignored)
+
+**Key insight:** Treat CLAUDE.md like code — review it when things go wrong, prune it regularly. If Claude keeps ignoring a rule, the file is too long and the rule is getting lost.
+
+**Tell Claude to remember things:**
 ```
-Refactor the payment module to use the Strategy pattern.
-- Keep the public API identical (no breaking changes)
-- Do not modify any test files
-- Do not add new dependencies
-- Each strategy should be in its own file under src/payments/strategies/
-```
-
-### Exploratory Prompting
-
-When you need to understand a codebase:
-
-```
-Trace the complete request lifecycle for POST /api/orders:
-1. Which middleware runs first?
-2. How is the request validated?
-3. What database queries are executed?
-4. How are errors handled?
-Show me the relevant code snippets for each step.
-```
-
-### Git-Aware Prompting
-
-Leverage Claude Code's git integration:
-
-```
-Look at the git diff for the last 3 commits. Write a comprehensive
-changelog entry summarizing the user-facing changes. Ignore internal
-refactoring and test changes.
-```
-
-### Multi-File Coordinated Changes
-
-When changes span multiple files:
-
-```
-I need to rename the "Organization" model to "Workspace" everywhere.
-This affects: the database schema, all API routes, the frontend
-components, and the tests. Make all changes atomically and ensure
-nothing references the old name. Run grep afterwards to confirm.
+Remember that we use pnpm, not npm, in this project.
+Save to memory that API tests require a local Redis instance.
 ```
 
-### Defensive Prompting
+### Master Mindset: Delegate, Don't Dictate
 
-Prevent common mistakes:
+> "Think of delegating to a capable colleague. Give context and direction, then trust Claude to figure out the details." — Anthropic
+
+**Delegation pattern:**
+```
+The checkout flow is broken for users with expired cards.
+The relevant code is in src/payments/. Investigate and fix it.
+```
+
+**NOT:**
+```
+Open src/payments/checkout.js, go to line 142, change x > 0 to x >= 0,
+then save, then run npm test, then...
+```
+
+You do not need to specify which files to read or what commands to run. Claude figures that out. **It's a conversation** — start with what you want, iterate naturally:
 
 ```
-Before making any changes, create a git commit with the current state.
-Then make the refactoring changes. If the tests fail after refactoring,
-show me the diff so I can review instead of attempting fixes.
+> Fix the login bug
+[Claude investigates, tries something]
+> That's not quite right — the issue is in session handling, not the auth check.
+[Claude adjusts approach]
 ```
+
+**The interview pattern for large features:**
+```
+I want to add real-time notifications. Interview me about the requirements —
+ask about technical constraints, edge cases, and tradeoffs I might not have
+considered. When we've covered everything, write a spec to SPEC.md.
+```
+Then start a **fresh session** to implement the spec (clean context).
+
+**The four-phase workflow:**
+1. **Explore** (Plan Mode) — read files, understand the codebase, no changes
+2. **Plan** (Plan Mode) — create implementation plan, press `Ctrl+G` to edit in your editor
+3. **Implement** (Normal Mode) — execute the plan, write tests, verify
+4. **Commit** (Normal Mode) — commit, create PR
+
+### Autonomous Execution: Minimize Human-in-the-Loop
+
+The goal is to maximize Claude's autonomous operation time. Every permission prompt, every "does this look right?", every manual review is friction that breaks flow.
+
+**Permission management (from most to least autonomous):**
+
+| Method | Use Case |
+|--------|----------|
+| `--dangerously-skip-permissions` | Sandboxed CI/CD, Docker, disposable environments |
+| `/permissions` allowlist | Pre-approve safe commands: `git status`, `npm test`, `eslint` |
+| `/sandbox` | OS-level isolation — Claude runs freely within the sandbox |
+| `--allowedTools` | Scope tools per run: only `Edit,Bash(npm test)` |
+| Hooks | Deterministic automation — guaranteed actions on events, unlike advisory CLAUDE.md |
+| Auto-accept mode (`Shift+Tab`) | Claude edits files without asking, still prompts for shell |
+
+**Headless execution for batch/CI workflows:**
+```bash
+# One-off analysis
+claude -p "List all API endpoints" --output-format json
+
+# With cost cap
+claude -p "Refactor auth module" --max-budget-usd 5.00 --max-turns 20
+
+# Fan-out pattern
+for file in $(cat files.txt); do
+  claude -p "Migrate $file from React to Vue" \
+    --allowedTools "Edit,Bash(git commit *)" \
+    --no-session-persistence
+done
+```
+
+**Notification hooks** — get alerted only when Claude actually needs you:
+```json
+{
+  "hooks": {
+    "Notification": [{
+      "matcher": { "event": "permission_prompt" },
+      "hooks": [{ "command": "notify-send 'Claude needs approval'" }]
+    }]
+  }
+}
+```
+
+### Context Hygiene
+
+> "Most best practices are based on one constraint: Claude's context window fills up fast, and performance degrades as it fills." — Anthropic
+
+**The rules:**
+
+1. **`/clear` between unrelated tasks** — the single most important habit
+2. **Use subagents for exploration** — keeps main context clean for implementation
+3. **`/compact` with focus** — `/compact Focus on the API changes we discussed`
+4. **Split spec and implementation** — write spec in one session, implement in a fresh one
+5. **`Esc+Esc` to rewind** — select checkpoint, "Summarize from here" to compress
+
+**The correction spiral anti-pattern:** If you have corrected Claude more than twice on the same issue, the context is cluttered with failed approaches. Run `/clear` and start fresh with a better initial prompt. A clean session with a good prompt almost always outperforms a long session with accumulated corrections.
+
+**Context budget awareness:**
+- Use `/context` to see what is consuming space
+- Delegate high-volume operations (test suites, log analysis) to subagents
+- CLAUDE.md is loaded every session — keep it concise or rules get lost
+
+### Multi-Agent Orchestration Patterns
+
+Claude Code supports multiple levels of parallelism for complex work:
+
+**Level 1: Subagents** (within a single session)
+```
+Research the auth, database, and API modules in parallel using separate subagents.
+Use a subagent to run the full test suite and report only failures.
+```
+Subagents run in isolated context windows. They cannot spawn further subagents. Use them to keep exploration noise out of your main context.
+
+**Level 2: Writer/Reviewer** (two manual sessions)
+- Session A writes the implementation
+- Session B reviews with fresh context (no implementation bias)
+
+**Level 3: Coordinator/Worker/Judge** (autonomous orchestration)
+- A coordinator decomposes work into tasks
+- Workers implement on separate git branches
+- Judges review (read-only tools, cannot modify code)
+- Failed reviews feed back to workers with specific fixes
+- Escalation after N failures
+
+This pattern enables overnight/multi-day autonomous execution where the human only reviews final results.
+
+**Level 4: Agent Teams** (experimental, `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`)
+- One lead session coordinates multiple teammate sessions
+- Shared task list with dependencies and inter-agent messaging
+- Each teammate has its own independent context window
+- Best for: parallel module development, competing debug hypotheses, cross-layer coordination
+
+### Summary: The Highest-Leverage Actions
+
+In order of impact:
+
+1. **Give Claude verification** (tests, linters, type checkers) — the single most impactful thing
+2. **Manage context aggressively** — `/clear` between tasks, subagents for exploration
+3. **Invest in CLAUDE.md** — compound returns across all future sessions
+4. **Delegate, don't dictate** — describe intent and constraints, not steps
+5. **Use Plan Mode for complex work** — separate thinking from doing
+6. **Set up permissions and hooks** — reduce interruption, guarantee actions
+7. **Leverage multi-agent patterns** — subagents for isolation, teams for parallelism
 
 ## Tutorials and Guides
 

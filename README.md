@@ -110,6 +110,7 @@ The Model Context Protocol (MCP) allows Claude Code to interact with external to
 
 - [Activepieces](https://github.com/activepieces/activepieces) - AI workflow automation platform with 400+ MCP servers for agents. ![GitHub Repo stars](https://img.shields.io/github/stars/activepieces/activepieces)
 - [Apple MCP](https://github.com/supermemoryai/apple-mcp) - Collection of Apple-native tools for the Model Context Protocol. ![GitHub Repo stars](https://img.shields.io/github/stars/supermemoryai/apple-mcp)
+- [NotFair Google Ads MCP](https://github.com/nowork-studio/toprank) - Google Ads MCP server for Claude. Diagnose campaign performance, recommend optimizations, and execute approved changes via the Google Ads API with a built-in human-approval gate. Hosted, streamable-HTTP at notfair.co. ![GitHub Repo stars](https://img.shields.io/github/stars/nowork-studio/toprank)
 
 ### Cloud and Infrastructure
 

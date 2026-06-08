@@ -115,6 +115,10 @@ The Model Context Protocol (MCP) allows Claude Code to interact with external to
 
 - [AWS MCP Servers](https://github.com/awslabs/mcp) - Official MCP servers for AWS services. ![GitHub Repo stars](https://img.shields.io/github/stars/awslabs/mcp)
 
+
+### Web3 and Blockchain
+
+- [TWZRD Agent Intel](https://intel.twzrd.xyz) - Trust scoring for Solana AI agents. Verify wallet identity before x402 micropayments. Zero-install: `{"mcpServers":{"twzrd-agent-intel":{"url":"https://intel.twzrd.xyz/mcp"}}}`
 ### Security and Reverse Engineering
 
 - [HexStrike AI](https://github.com/0x4m4/hexstrike-ai) - Advanced MCP server for 150+ cybersecurity tools covering automated pentesting, vulnerability discovery, and security research. ![GitHub Repo stars](https://img.shields.io/github/stars/0x4m4/hexstrike-ai)

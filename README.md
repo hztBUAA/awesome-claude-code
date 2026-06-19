@@ -76,6 +76,7 @@ Skills are reusable markdown-based instructions that extend Claude Code's capabi
 - [Claude Code Tresor](https://github.com/alirezarezvani/claude-code-tresor) - Collection of autonomous skills, expert agents, slash commands, and prompts for Claude Code. ![GitHub Repo stars](https://img.shields.io/github/stars/alirezarezvani/claude-code-tresor)
 - [BMAD Method Skills](https://github.com/aj-geddes/claude-code-bmad-skills) - BMAD Method skills for Claude Code with auto-detection, memory integration, and slash commands. ![GitHub Repo stars](https://img.shields.io/github/stars/aj-geddes/claude-code-bmad-skills)
 - [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) - Configuration framework enhancing Claude Code with specialized commands, cognitive personas, and development methodologies. ![GitHub Repo stars](https://img.shields.io/github/stars/SuperClaude-Org/SuperClaude_Framework)
+- [NotFair](https://github.com/nowork-studio/NotFair) - Open-source Claude Code skills for SEO, GEO, Google Ads, and Meta Ads, connecting to live data via Google Ads MCP, Meta Ads MCP, Google Search Console MCP, and Google Analytics (GA4) MCP. ![GitHub Repo stars](https://img.shields.io/github/stars/nowork-studio/NotFair)
 
 ## MCP Servers
 

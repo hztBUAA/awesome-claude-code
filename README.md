@@ -182,6 +182,7 @@ Tools for tracking token usage, API costs, and session analytics.
 - [toktrack](https://github.com/mag123c/toktrack) - Ultra-fast token and cost tracker for LLM token usage including Claude Code. ![GitHub Repo stars](https://img.shields.io/github/stars/mag123c/toktrack)
 - [cccost](https://github.com/badlogic/cccost) - Instrument Claude Code to track actual token usage and cost. ![GitHub Repo stars](https://img.shields.io/github/stars/badlogic/cccost)
 - [claude-loop](https://github.com/li0nel/claude-loop) - Automation toolkit for running iterative Claude Code sessions with cost tracking and monitoring. ![GitHub Repo stars](https://img.shields.io/github/stars/li0nel/claude-loop)
+- [ax](https://github.com/Necmttn/ax) - Local-first dashboard for Claude Code, Codex, OpenCode, Cursor, and Pi session costs, tools, skills, and OTLP telemetry. ![GitHub Repo stars](https://img.shields.io/github/stars/Necmttn/ax)
 
 ## Workflow and Multi-Agent Tools
 

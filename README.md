@@ -155,6 +155,7 @@ Tools that extend or complement the Claude Code CLI experience.
 - [Claude Squad](https://github.com/smtg-ai/claude-squad) - Manage multiple AI terminal agents like Claude Code, Aider, Codex, OpenCode, and Amp simultaneously. ![GitHub Repo stars](https://img.shields.io/github/stars/smtg-ai/claude-squad)
 - [Vibe Kanban](https://github.com/BloopAI/vibe-kanban) - Get 10x more out of Claude Code, Codex, or any coding agent with kanban-style task management. ![GitHub Repo stars](https://img.shields.io/github/stars/BloopAI/vibe-kanban)
 - [Agents (wshobson)](https://github.com/wshobson/agents) - Intelligent automation and multi-agent orchestration for Claude Code. ![GitHub Repo stars](https://img.shields.io/github/stars/wshobson/agents)
+- [Full Stack HQ](https://github.com/sabahattink/antigravity-fullstack-hq) - Tool-agnostic, permission-first engineering workflow with shared agents, skills, and workflows for Claude Code, Antigravity, and Codex ![GitHub Repo stars](https://img.shields.io/github/stars/sabahattink/antigravity-fullstack-hq)
 
 ## GUI and Remote Clients
 

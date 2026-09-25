@@ -170,6 +170,7 @@ Graphical and remote interfaces for interacting with Claude Code beyond the term
 - [Claude Code Remote (Telegram/Email/Discord)](https://github.com/JessyTsui/Claude-Code-Remote) - Control Claude Code remotely via email, Discord, or Telegram with task notifications and reply-to-command. ![GitHub Repo stars](https://img.shields.io/github/stars/JessyTsui/Claude-Code-Remote)
 - [Claude Code Telegram](https://github.com/RichardAtCT/claude-code-telegram) - Telegram bot providing remote access to Claude Code with full AI assistance and session persistence. ![GitHub Repo stars](https://img.shields.io/github/stars/RichardAtCT/claude-code-telegram)
 - [Claude Code Telegram (hanxiao)](https://github.com/hanxiao/claudecode-telegram) - Telegram bridge for Claude Code. ![GitHub Repo stars](https://img.shields.io/github/stars/hanxiao/claudecode-telegram)
+- [Superagent](https://github.com/pungme/superagent-desktop) - Native macOS desktop app giving Claude Code a real browser to drive, an iOS Simulator to install and screenshot apps in, and a phone companion app for remote monitoring. ![GitHub Repo stars](https://img.shields.io/github/stars/pungme/superagent-desktop)
 
 ## Monitoring and Cost Tracking
 

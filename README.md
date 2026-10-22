@@ -76,6 +76,7 @@ Skills are reusable markdown-based instructions that extend Claude Code's capabi
 - [Claude Code Tresor](https://github.com/alirezarezvani/claude-code-tresor) - Collection of autonomous skills, expert agents, slash commands, and prompts for Claude Code. ![GitHub Repo stars](https://img.shields.io/github/stars/alirezarezvani/claude-code-tresor)
 - [BMAD Method Skills](https://github.com/aj-geddes/claude-code-bmad-skills) - BMAD Method skills for Claude Code with auto-detection, memory integration, and slash commands. ![GitHub Repo stars](https://img.shields.io/github/stars/aj-geddes/claude-code-bmad-skills)
 - [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) - Configuration framework enhancing Claude Code with specialized commands, cognitive personas, and development methodologies. ![GitHub Repo stars](https://img.shields.io/github/stars/SuperClaude-Org/SuperClaude_Framework)
+- [OpenJobs](https://openjobs.thecompound.tech) - OpenJobs keeps your roles, projects, achievements, stories and skills in one experience bank; it tailors each resume and each application answer from that bank for the job.
 
 ## MCP Servers
 
